@@ -5,6 +5,9 @@ U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 int brightness = 50;
 bool enableFeature = true;
+int xCoord = 0;
+int yCoord = 0;
+int zCoord = 0;
 
 // Create page objects of class GEMPage. Menu page holds menu items (GEMItem) and represents menu level.
 GEMPage menuPageMain("Main Menu");
@@ -17,6 +20,9 @@ GEMPage menuPageOptionSix("Option Six");
 GEMPage menuPageOptionSeven("Option Seven");
 
 GEMItem itemBrightness("Brightness:", brightness);
+GEMItem xPosition("x coordinate: ", xCoord);
+GEMItem yPosition("y coordinate: ", yCoord);
+GEMItem zPosition("z coordinate: ", zCoord);
 GEMItem itemEnableFeature("Enable Feature:", enableFeature);
 GEMItem itemOptionOneLink("Option One", menuPageOptionOne);
 GEMItem itemOptionTwoLink("Option Two", menuPageOptionTwo);
@@ -39,10 +45,14 @@ void setup() {
 
   menu.init();
   setupMenu();
+  menu.drawMenu();
 }
 
 void setupMenu() {
   menuPageOptionOne.addMenuItem(itemBrightness);
+  menuPageOptionTwo.addMenuItem(xPosition);
+  menuPageOptionTwo.addMenuItem(yPosition);
+  menuPageOptionTwo.addMenuItem(zPosition);
   // Add menu items to menu page
   menuPageMain.addMenuItem(itemBrightness);
   //menuPageMain.addMenuItem(itemEnableFeature);
