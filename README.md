@@ -99,20 +99,22 @@ Below is a simple example of setting up a hierarchical menu system:
 >
 >// Create menu pages and items  
 >void setup() {  
->u8g2.begin();  
+>>u8g2.begin();  
+>>
+>>GEMPage mainMenu("Main Menu");  
+>>GEMPage settingsPage("Settings");  
+>>
+>>mainMenu.addMenuItem(GEMItem("Settings", settingsPage));  
+>>settingsPage.addMenuItem(GEMItem("Brightness:", brightness));  
+>>settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature));  
+>>
+>>menu.init(mainMenu); // Initialize menu system
 >
->GEMPage mainMenu("Main Menu");  
->GEMPage settingsPage("Settings");  
->
->mainMenu.addMenuItem(GEMItem("Settings", settingsPage));  
->settingsPage.addMenuItem(GEMItem("Brightness:", brightness));  
->settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature));  
->
->menu.init(mainMenu); // Initialize menu system  
 >}  
 >
 >void loop() {  
->menu.handleInput(); // Handle button presses or rotary encoder input  
+>>menu.handleInput(); // Handle button presses or rotary encoder input
+>
 >}  
 
 ---
