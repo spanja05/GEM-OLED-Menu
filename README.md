@@ -104,9 +104,9 @@ Below is a simple example of setting up a hierarchical menu system:
 >>GEMPage mainMenu("Main Menu");  
 >>GEMPage settingsPage("Settings");  
 >>
->>mainMenu.addMenuItem(GEMItem("Settings", settingsPage));  
->>settingsPage.addMenuItem(GEMItem("Brightness:", brightness));  
->>settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature));  
+>>mainMenu.addMenuItem(GEMItem("Settings", settingsPage)); // add settings page to mainMenu  
+>>settingsPage.addMenuItem(GEMItem("Brightness:", brightness)); // add brightness item to settingsPage  
+>>settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature)); // add checkbox item to settingsPage  
 >>
 >>menu.init(mainMenu); // Initialize menu system
 >
@@ -119,7 +119,7 @@ Below is a simple example of setting up a hierarchical menu system:
 
 ---
 
-## **Adding and Linking Pages**
+## **Adding and Linking Pages / Menus**
 
 Basic Concept  
 You create a new GEMPage, then add it as a child to a GEMItem, which is added to the parent page. For example:  
