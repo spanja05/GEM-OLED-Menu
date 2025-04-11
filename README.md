@@ -86,8 +86,8 @@ For rotary encoders, libraries like `KeyDetector` can map physical rotations to 
 
 Below is a simple example of setting up a hierarchical menu system:  
 
->#include <U8g2lib.h>  
->#include <GEM.h>  
+#include <U8g2lib.h>  
+#include <GEM.h>  
 >
 >// Initialize U8g2 and GEM objects  
 >U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);  
@@ -101,6 +101,7 @@ Below is a simple example of setting up a hierarchical menu system:
 >void setup() {  
 >>u8g2.begin();  
 >>
+## **Here's an example of how to initialize and populate a menu:**
 >>GEMPage mainMenu("Main Menu");  
 >>GEMPage settingsPage("Settings");  
 >>
