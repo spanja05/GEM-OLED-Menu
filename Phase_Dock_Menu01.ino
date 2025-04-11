@@ -1,23 +1,30 @@
 #include <GEM_u8g2.h>
 
-// Include sprites of animation frames
-// (moved to separate file to save space)
-#include "frames.h"
-
 // Create an instance of the U8g2 library.
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 int brightness = 50;
 bool enableFeature = true;
 
+// Create page objects of class GEMPage. Menu page holds menu items (GEMItem) and represents menu level.
+GEMPage menuPageMain("Main Menu");
+GEMPage menuPageOptionOne("Option One");
+GEMPage menuPageOptionTwo("Option Two");
+GEMPage menuPageOptionThree("Option Three");
+GEMPage menuPageOptionFour("Option Four");
+GEMPage menuPageOptionFive("Option Five");
+GEMPage menuPageOptionSix("Option Six");
+GEMPage menuPageOptionSeven("Option Seven");
+
 GEMItem itemBrightness("Brightness:", brightness);
 GEMItem itemEnableFeature("Enable Feature:", enableFeature);
-GEMItem itemAboutLink("About", menuPageAbout);
-
-// Create mennu page object of class GEMPage. Menu page holds menu items (GEMItem) and represents menu level.
-GEMPage menuPageMain("Main Menu");
-GEMPage menuPageSettings("Settings");
-GEMPage menuPageAbout("About");
+GEMItem itemOptionOneLink("Option One", menuPageOptionOne);
+GEMItem itemOptionTwoLink("Option Two", menuPageOptionTwo);
+GEMItem itemOptionThreeLink("Option Three", menuPageOptionThree);
+GEMItem itemOptionFourLink("Option Four", menuPageOptionFour);
+GEMItem itemOptionFiveLink("Option Five", menuPageOptionFive);
+GEMItem itemOptionSixLink("Option Six", menuPageOptionSix);
+GEMItem itemOptionSevenLink("Option Seven", menuPageOptionSeven);
 
 // Create menu object of class GEM_u8g2. Supply its constructor with reference to u8g2 object we created earlier
 GEM_u8g2 menu(u8g2, GEM_POINTER_ROW, GEM_ITEMS_COUNT_AUTO);
@@ -35,10 +42,24 @@ void setup() {
 }
 
 void setupMenu() {
+  menuPageOptionOne.addMenuItem(itemBrightness);
   // Add menu items to menu page
   menuPageMain.addMenuItem(itemBrightness);
-  menuPageMain.addMenuItem(itemEnableFeature);
-  menuPageMain.addMenuItem(itemAboutLink);
+  //menuPageMain.addMenuItem(itemEnableFeature);
+  menuPageMain.addMenuItem(itemOptionOneLink);
+  menuPageMain.addMenuItem(itemOptionTwoLink);
+  menuPageMain.addMenuItem(itemOptionThreeLink);
+  menuPageMain.addMenuItem(itemOptionFiveLink);
+  menuPageMain.addMenuItem(itemOptionSixLink);
+  menuPageMain.addMenuItem(itemOptionSevenLink);
+
+  menuPageOptionOne.setParentMenuPage(menuPageMain);
+  menuPageOptionTwo.setParentMenuPage(menuPageMain);
+  menuPageOptionThree.setParentMenuPage(menuPageMain);
+  menuPageOptionFour.setParentMenuPage(menuPageMain);
+  menuPageOptionFive.setParentMenuPage(menuPageMain);
+  menuPageOptionSix.setParentMenuPage(menuPageMain);
+  menuPageOptionSeven.setParentMenuPage(menuPageMain);
 
   // Add menu page to menu and set it as current
   menu.setMenuPageCurrent(menuPageMain);
