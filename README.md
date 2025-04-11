@@ -84,56 +84,58 @@ For rotary encoders, libraries like `KeyDetector` can map physical rotations to 
 
 ## **Example Usage**
 
-Below is a simple example of setting up a hierarchical menu system:
-#include <U8g2lib.h>
-#include <GEM.h>
+Below is a simple example of setting up a hierarchical menu system:  
 
-// Initialize U8g2 and GEM objects
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);
-GEM_u8g2 menu(u8g2);
-
-// Define variables
-int brightness = 50;
-bool enableFeature = true;
-
-// Create menu pages and items
-void setup() {
-u8g2.begin();
-
-GEMPage mainMenu("Main Menu");
-GEMPage settingsPage("Settings");
-
-mainMenu.addMenuItem(GEMItem("Settings", settingsPage));
-settingsPage.addMenuItem(GEMItem("Brightness:", brightness));
-settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature));
-
-menu.init(mainMenu); // Initialize menu system
-}
-
-void loop() {
-menu.handleInput(); // Handle button presses or rotary encoder input
-}
+>#include <U8g2lib.h>  
+>#include <GEM.h>  
+>
+>// Initialize U8g2 and GEM objects  
+>U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);  
+>GEM_u8g2 menu(u8g2);  
+>
+>// Define variables  
+>int brightness = 50;  
+>bool enableFeature = true;  
+>
+>// Create menu pages and items  
+>void setup() {  
+>u8g2.begin();  
+>
+>GEMPage mainMenu("Main Menu");  
+>GEMPage settingsPage("Settings");  
+>
+>mainMenu.addMenuItem(GEMItem("Settings", settingsPage));  
+>settingsPage.addMenuItem(GEMItem("Brightness:", brightness));  
+>settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature));  
+>
+>menu.init(mainMenu); // Initialize menu system  
+>}  
+>
+>void loop() {  
+>menu.handleInput(); // Handle button presses or rotary encoder input  
+>}  
 
 ---
 
 ## **Adding and Linking Pages**
 
-Basic Concept
-You create a new GEMPage, then add it as a child to a GEMItem, which is added to the parent page. For example:
+Basic Concept  
+You create a new GEMPage, then add it as a child to a GEMItem, which is added to the parent page. For example:  
 
-// Creating the page objects
-GEMPage mainMenu("Main Menu");
-GEMPage settingsPage("Settings");
-GEMPage displayPage("Display");
+>// Creating the page objects  
+>GEMPage mainMenu("Main Menu");  
+>GEMPage settingsPage("Settings");  
+>GEMPage displayPage("Display");  
+>
+>// Linking pages together  
+>mainMenu.addMenuItem(GEMItem("Settings", settingsPage));  
+>settingsPage.addMenuItem(GEMItem("Display", displayPage));  
 
-// Linking pages together
-mainMenu.addMenuItem(GEMItem("Settings", settingsPage));
-settingsPage.addMenuItem(GEMItem("Display", displayPage));
-This creates a structure like:
 
-Main Menu
- └── Settings
-     └── Display
+This creates a structure like:  
+Main Menu  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Settings  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Display  
 
 ---
 
