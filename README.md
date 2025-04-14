@@ -37,34 +37,20 @@ The library simplifies menu creation with intuitive syntax:
 - Works with both **I2C** and **SPI** interfaces.
 - Automatically adapts to different screen dimensions.
 
-### 4. **Adaptability**
-GEM allows runtime customization of menus:
-- Dynamically add or remove menu pages and items.
-- Change menu titles or variable bindings without reinitialization.
-- Customize appearance (e.g., pointer style, item spacing).
-
-Example of runtime customization:  
->void addSensorPage() {  
->GEMPage sensorPage("Sensors");  
->sensorPage.addMenuItem(GEMItem("Temp", tempVar));  
->mainMenu.addMenuItem(GEMItem("Sensors", sensorPage));  
->}  
-
-
 ---
 
 ## **Button Configuration**
 
-The GEM library supports flexible button setups, ranging from **3 to 6 buttons**, depending on your hardware configuration. Below is how we mapped our buttons but this is very flexible
+The GEM library supports flexible button setups, ranging from **3 to 6 buttons**, depending on your hardware configuration. Below is how we mapped our buttons but this is flexible
 
-| Button Action      | GEM Constant      | Typical Pin Usage |
-|--------------------|-------------------|-------------------|
-| Select/Enter       | `GEM_KEY_RIGHT`   | Digital pin 7     |
-| Back               | `GEM_KEY_LEFT`    | Digital pin 8     |
-| Scroll Up          | `GEM_KEY_UP`      | Rotary A phase    |
-| Scroll Down        | `GEM_KEY_DOWN`    | Rotary B phase    |
-| Context Menu       | `GEM_KEY_CANCEL`  | Analog pin A0     |
-| Context Menu       | `GEM_KEY_CANCEL`  | Analog pin A0     |
+| Action      | GEM Constant      | Pin we used   |
+|-------------|-------------------|---------------|
+| Select      | `GEM_KEY_SELECT`  | 32            |
+| Right       | `GEM_KEY_RIGHT`   | 14            |
+| Left        | `GEM_KEY_LEFT`    | 33            |
+| Up          | `GEM_KEY_UP`      | 26            |
+| Down        | `GEM_KEY_DOWN`    | 27            |
+| Escape      | `GEM_KEY_CANCEL`  | 25            |
 
 ---
 
@@ -73,11 +59,10 @@ The GEM library supports flexible button setups, ranging from **3 to 6 buttons**
 1. Install the required libraries via the Arduino IDE Library Manager:
    - [GEM Library](https://github.com/Spirik/GEM) (v1.5+)
    - [U8g2](https://github.com/olikraus/u8g2) (v2.32+)
-   - [KeyDetector](https://github.com/mathertel/RotaryEncoder) (v1.2+) for rotary encoders.
 
 2. Connect your OLED display and buttons according to your hardware schematic.
 
-3. Wire the buttons or rotary encoder pins to your microcontroller, ensuring they match the configuration in your code.
+3. Wire the buttons to your microcontroller, ensuring they match the configuration in your code.
 
 ---
 
@@ -100,10 +85,10 @@ Below is a simple example of setting up a hierarchical menu system:
 >void setup() {  
 >>u8g2.begin();  
 >>
-## **Here's an example of how to initialize and populate a menu:**
 >>GEMPage mainMenu("Main Menu");  
->>GEMPage settingsPage("Settings");  
+>>GEMPage settingsPage("Settings");
 >>
+>>//Connecting and Populating Menu  
 >>mainMenu.addMenuItem(GEMItem("Settings", settingsPage)); // add settings page to mainMenu  
 >>settingsPage.addMenuItem(GEMItem("Brightness:", brightness)); // add brightness item to settingsPage  
 >>settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature)); // add checkbox item to settingsPage  
@@ -144,6 +129,5 @@ Main Menu
 ## **Credits**
 - [GEM Library](https://github.com/Spirik/GEM): Core menu logic.
 - [U8g2 Library](https://github.com/olikraus/u8g2): OLED rendering engine.
-- [KeyDetector](https://github.com/mathertel/RotaryEncoder): Rotary input handling.
 
 ---
