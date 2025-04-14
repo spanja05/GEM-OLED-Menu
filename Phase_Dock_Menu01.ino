@@ -10,27 +10,32 @@ int yCoord = 0;
 int zCoord = 0;
 
 // Create page objects of class GEMPage. Menu page holds menu items (GEMItem) and represents menu level.
+GEMPage homePage("Home");
 GEMPage menuPageMain("Main Menu");
-GEMPage menuPageOptionOne("Option One");
-GEMPage menuPageOptionTwo("Option Two");
-GEMPage menuPageOptionThree("Option Three");
-GEMPage menuPageOptionFour("Option Four");
-GEMPage menuPageOptionFive("Option Five");
-GEMPage menuPageOptionSix("Option Six");
-GEMPage menuPageOptionSeven("Option Seven");
+GEMPage teleoperation("Teleoperation"); //Teleoperation submenu
+GEMPage reactiveControl("Reactive Control");
+GEMPage fsm("Finite State Machine");
+GEMPage scriptedControl("Scripted Control");
+GEMPage smartDecisions("Sensor + Logic");
+GEMPage subsumptionArch("Subsumption Architecture");
+GEMPage swarmBehavior("Swarm Behavior");
+GEMPage directControl("Direct Control");
+GEMPage assistedControl("Assisted Control");
 
-GEMItem itemBrightness("Brightness:", brightness);
+GEMItem phaseDock("Phase Dock");
 GEMItem xPosition("x coordinate: ", xCoord);
 GEMItem yPosition("y coordinate: ", yCoord);
 GEMItem zPosition("z coordinate: ", zCoord);
-GEMItem itemEnableFeature("Enable Feature:", enableFeature);
-GEMItem itemOptionOneLink("Option One", menuPageOptionOne);
-GEMItem itemOptionTwoLink("Option Two", menuPageOptionTwo);
-GEMItem itemOptionThreeLink("Option Three", menuPageOptionThree);
-GEMItem itemOptionFourLink("Option Four", menuPageOptionFour);
-GEMItem itemOptionFiveLink("Option Five", menuPageOptionFive);
-GEMItem itemOptionSixLink("Option Six", menuPageOptionSix);
-GEMItem itemOptionSevenLink("Option Seven", menuPageOptionSeven);
+GEMItem mainMenuLink("--> Main Menu", menuPageMain);
+GEMItem teleoperationLink("Teleoperation", teleoperation); // Create menu item linked to teleoperation page
+GEMItem reactiveControlLink("Reactive Control", reactiveControl);
+GEMItem fsmLink("Finite State Machine", fsm);
+GEMItem scriptedControlLink("Scripted Control", scriptedControl);
+GEMItem smartDecisionsLink("Sensor + Logic", smartDecisions);
+GEMItem subsumptionArchLink("Subsumption Architecture", subsumptionArch);
+GEMItem swarmBehaviorLink("Swarm Behavior", swarmBehavior);
+GEMItem directControlLink("Direct Control", directControl);
+GEMItem assistedControlLink("Assisted Control", assistedControl);
 
 // Create menu object of class GEM_u8g2. Supply its constructor with reference to u8g2 object we created earlier
 GEM_u8g2 menu(u8g2, GEM_POINTER_ROW, GEM_ITEMS_COUNT_AUTO);
@@ -49,30 +54,65 @@ void setup() {
 }
 
 void setupMenu() {
-  menuPageOptionOne.addMenuItem(itemBrightness);
-  menuPageOptionTwo.addMenuItem(xPosition);
-  menuPageOptionTwo.addMenuItem(yPosition);
-  menuPageOptionTwo.addMenuItem(zPosition);
-  // Add menu items to menu page
-  menuPageMain.addMenuItem(itemBrightness);
-  //menuPageMain.addMenuItem(itemEnableFeature);
-  menuPageMain.addMenuItem(itemOptionOneLink);
-  menuPageMain.addMenuItem(itemOptionTwoLink);
-  menuPageMain.addMenuItem(itemOptionThreeLink);
-  menuPageMain.addMenuItem(itemOptionFiveLink);
-  menuPageMain.addMenuItem(itemOptionSixLink);
-  menuPageMain.addMenuItem(itemOptionSevenLink);
+  homePage
+    .addMenuItem(phaseDock)
+    .addMenuItem(mainMenuLink);
+  menuPageMain
+    .setParentMenuPage(homePage)
+    .addMenuItem(teleoperationLink)
+    .addMenuItem(reactiveControlLink)
+    .addMenuItem(fsmLink)
+    .addMenuItem(scriptedControlLink)
+    .addMenuItem(smartDecisionsLink)
+    .addMenuItem(subsumptionArchLink)
+    .addMenuItem(swarmBehaviorLink);
 
-  menuPageOptionOne.setParentMenuPage(menuPageMain);
-  menuPageOptionTwo.setParentMenuPage(menuPageMain);
-  menuPageOptionThree.setParentMenuPage(menuPageMain);
-  menuPageOptionFour.setParentMenuPage(menuPageMain);
-  menuPageOptionFive.setParentMenuPage(menuPageMain);
-  menuPageOptionSix.setParentMenuPage(menuPageMain);
-  menuPageOptionSeven.setParentMenuPage(menuPageMain);
+  teleoperation
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition)
+    .addMenuItem(directControlLink)
+    .addMenuItem(assistedControlLink);
+
+  reactiveControl
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition);
+
+  fsm
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition);
+
+  scriptedControl
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition);
+
+  smartDecisions
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition);
+
+  subsumptionArch
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition);
+
+  swarmBehavior
+    .setParentMenuPage(menuPageMain)
+    .addMenuItem(xPosition)
+    .addMenuItem(yPosition)
+    .addMenuItem(zPosition);
 
   // Add menu page to menu and set it as current
-  menu.setMenuPageCurrent(menuPageMain);
+  menu.setMenuPageCurrent(homePage);
 }
 
 void loop() {
