@@ -10,7 +10,7 @@ This project implements a customizable hierarchical menu system for embedded sys
 - **Variable editing** for `int`, `bool`, `float`, and `char` types.
 - **Rotary encoder/button navigation** with flexible configurations.
 - **Dynamic screen rendering** using U8g2 graphics library.
-- **Low memory footprint**, making it ideal for resource-constrained microcontrollers (e.g., ATmega328P).
+- **Low memory footprint**, making it ideal for resource-constrained microcontrollers.
 
 ---
 
@@ -25,11 +25,11 @@ GEM leverages C++ classes (`GEMPage`, `GEMItem`, `GEM_u8g2`) to encapsulate:
 This makes it easy to build complex menus without worrying about low-level implementation details.
 
 ### 2. **Ease of Use**
-The library simplifies menu creation with intuitive syntax:
-GEMPage mainMenu("Settings");
-GEMItem brightnessItem("Brightness", brightnessVal);
-mainMenu.addMenuItem(brightnessItem);
-menu.init(mainMenu);
+The library simplifies menu creation with intuitive syntax:  
+>GEMPage mainMenu("Settings");  
+>GEMItem brightnessItem("Brightness", brightnessVal);  
+>mainMenu.addMenuItem(brightnessItem);  
+>menu.init(mainMenu);  
 
 
 ### 3. **Display Compatibility**
@@ -43,19 +43,19 @@ GEM allows runtime customization of menus:
 - Change menu titles or variable bindings without reinitialization.
 - Customize appearance (e.g., pointer style, item spacing).
 
-Example of runtime customization:
-void addSensorPage() {
-GEMPage sensorPage("Sensors");
-sensorPage.addMenuItem(GEMItem("Temp", tempVar));
-mainMenu.addMenuItem(GEMItem("Sensors", sensorPage));
-}
+Example of runtime customization:  
+>void addSensorPage() {  
+>GEMPage sensorPage("Sensors");  
+>sensorPage.addMenuItem(GEMItem("Temp", tempVar));  
+>mainMenu.addMenuItem(GEMItem("Sensors", sensorPage));  
+>}  
 
 
 ---
 
 ## **Button Configuration**
 
-The GEM library supports flexible button setups, ranging from **3 to 6 buttons**, depending on your hardware configuration. Below is a typical mapping:
+The GEM library supports flexible button setups, ranging from **3 to 6 buttons**, depending on your hardware configuration. Below is how we mapped our buttons but this is very flexible
 
 | Button Action      | GEM Constant      | Typical Pin Usage |
 |--------------------|-------------------|-------------------|
@@ -64,8 +64,7 @@ The GEM library supports flexible button setups, ranging from **3 to 6 buttons**
 | Scroll Up          | `GEM_KEY_UP`      | Rotary A phase    |
 | Scroll Down        | `GEM_KEY_DOWN`    | Rotary B phase    |
 | Context Menu       | `GEM_KEY_CANCEL`  | Analog pin A0     |
-
-For rotary encoders, libraries like `KeyDetector` can map physical rotations to GEM navigation events.
+| Context Menu       | `GEM_KEY_CANCEL`  | Analog pin A0     |
 
 ---
 
@@ -86,8 +85,8 @@ For rotary encoders, libraries like `KeyDetector` can map physical rotations to 
 
 Below is a simple example of setting up a hierarchical menu system:  
 
-#include <U8g2lib.h>  
-#include <GEM.h>  
+>#include <U8g2lib.h>  
+>#include <GEM.h>  
 >
 >// Initialize U8g2 and GEM objects  
 >U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);  
