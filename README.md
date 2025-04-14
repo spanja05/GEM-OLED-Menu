@@ -45,12 +45,12 @@ The GEM library supports flexible button setups, ranging from **3 to 6 buttons**
 
 | Action      | GEM Constant      | Pin we used   |
 |-------------|-------------------|---------------|
-| Select      | `GEM_KEY_SELECT`  | 32            |
-| Right       | `GEM_KEY_RIGHT`   | 14            |
-| Left        | `GEM_KEY_LEFT`    | 33            |
-| Up          | `GEM_KEY_UP`      | 26            |
-| Down        | `GEM_KEY_DOWN`    | 27            |
-| Escape      | `GEM_KEY_CANCEL`  | 25            |
+| Select      | `PIN_SELECT`      | 32            |
+| Right       | `PIN_RIGHT`       | 14            |
+| Left        | `PIN_LEFT`        | 33            |
+| Up          | `PIN_UP`          | 26            |
+| Down        | `PIN_DOWN`        | 27            |
+| Escape      | `PIN_HOME`        | 25            |
 
 ---
 
