@@ -3,6 +3,13 @@
 // Create an instance of the U8g2 library.
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
+const int PIN_SELECT = 32;
+const int PIN_RIGHT = 14;
+const int PIN_LEFT = 33;
+const int PIN_UP = 26;
+const int PIN_DOWN = 27;
+const int PIN_HOME = 25;
+
 int brightness = 50;
 bool enableFeature = true;
 int xCoord = 0;
@@ -12,8 +19,8 @@ int zCoord = 0;
 // Create page objects of class GEMPage. Menu page holds menu items (GEMItem) and represents menu level.
 GEMPage homePage("Home");
 GEMPage menuPageMain("Main Menu");
-GEMPage teleoperation("Teleoperation"); //Teleoperation submenu
-GEMPage reactiveControl("Reactive Control");
+GEMPage teleoperation("Teleoperation"); // Teleoperation submenu
+GEMPage reactiveControl("Reactive Control"); // can also do GEMPage reactiveControl("Reactive Control", menuPageMain) to specify parent page.
 GEMPage fsm("Finite State Machine");
 GEMPage scriptedControl("Scripted Control");
 GEMPage smartDecisions("Sensor + Logic");
@@ -46,7 +53,7 @@ void setup() {
 
   // U8g2 library init. Pass pin numbers the buttons are connected to.
   // The push-buttons should be wired with pullup resistors (so the LOW means that the button is pressed)
-  u8g2.begin(/*Select/OK=*/ 32, /*Right/Next=*/ 14, /*Left/Prev=*/ 33, /*Up=*/ 26, /*Down=*/ 27, /*Home/Cancel=*/ 25);
+  u8g2.begin(/*Select/OK=*/ PIN_SELECT, /*Right/Next=*/ PIN_RIGHT, /*Left/Prev=*/ PIN_LEFT, /*Up=*/ PIN_UP, /*Down=*/ PIN_DOWN, /*Home/Cancel=*/ PIN_HOME);
 
   menu.init();
   setupMenu();
