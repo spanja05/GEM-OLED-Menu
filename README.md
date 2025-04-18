@@ -8,7 +8,6 @@ This project implements a customizable hierarchical menu system for embedded sys
 ## **Features**
 - **Multi-level hierarchical menus** with parent/child relationships.
 - **Variable editing** for `int`, `bool`, `float`, and `char` types.
-- **Rotary encoder/button navigation** with flexible configurations.
 - **Dynamic screen rendering** using U8g2 graphics library.
 - **Low memory footprint**, making it ideal for resource-constrained microcontrollers.
 
@@ -70,54 +69,56 @@ The GEM library supports flexible button setups, ranging from **3 to 6 buttons**
 
 Below is a simple example of setting up a hierarchical menu system:  
 
->#include <U8g2lib.h>  
->#include <GEM.h>  
->
->// Initialize U8g2 and GEM objects  
->U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);  
->GEM_u8g2 menu(u8g2);  
->
->// Define variables  
->int brightness = 50;  
->bool enableFeature = true;  
->
->// Create menu pages and items  
->void setup() {  
->>u8g2.begin();  
->>
->>GEMPage mainMenu("Main Menu");  
->>GEMPage settingsPage("Settings");
->>
->>//Connecting and Populating Menu  
->>mainMenu.addMenuItem(GEMItem("Settings", settingsPage)); // add settings page to mainMenu  
->>settingsPage.addMenuItem(GEMItem("Brightness:", brightness)); // add brightness item to settingsPage  
->>settingsPage.addMenuItem(GEMItem("Enable Feature:", enableFeature)); // add checkbox item to settingsPage  
->>
->>menu.init(mainMenu); // Initialize menu system
->
->}  
->
->void loop() {  
->>menu.handleInput(); // Handle button presses or rotary encoder input
->
->}  
+```
+#include <GEM_u8g2.h>
 
----
+// Initialize U8g2 and GEM objects  
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);  
+GEM_u8g2 menu(u8g2, GEM_POINTER_ROW, GEM_ITEMS_COUNT_AUTO);  //menu object of class GEM_u8g2 
 
-## **Adding and Linking Pages / Menus**
+// Define variables  
+int number = 50;
 
-Basic Concept  
-You create a new GEMPage, then add it as a child to a GEMItem, which is added to the parent page. For example:  
+// Create Pages
+GEMPage mainMenu("Main Menu");  
+GEMPage settingsPage("Settings");
 
->// Creating the page objects  
->GEMPage mainMenu("Main Menu");  
->GEMPage settingsPage("Settings");  
->GEMPage displayPage("Display");  
->
->// Linking pages together  
->mainMenu.addMenuItem(GEMItem("Settings", settingsPage));  
->settingsPage.addMenuItem(GEMItem("Display", displayPage));  
+// Create items to display on pages
+GEMItem welcomeMessage("Welcome");
+GEMItem settingsLink("--> Settings", settingsPage);
+GEMItem settingItemInt("Number", number);
 
+void setup() {
+   Serial.begin(115200); // Serial communication setup
+   u8g2.begin(/*Select/OK=*/ 7, /*Right/Next=*/ 4, /*Left/Prev=*/ 3, /*Up=*/ 5, /*Down=*/ 2, /*Home/Cancel=*/ 6);
+
+   menu.init();
+   setupMenu();
+   menu.drawMenu();
+}
+
+void setupMenu() {
+  mainMenu
+    .addMenuItem(welcomeMessage)
+    .addMenuItem(settingsLink); // this links the menu and settings page together
+  settingsPage
+    .setParentMenuPage(mainMenu) // sets the parent page of the settings page to the main menu page
+    .addMenuItem(settingItemInt); // an editable number displayed on the settings page
+
+  // Add menu page to menu and set it as current
+  menu.setMenuPageCurrent(mainMenu);
+}
+
+void loop() {
+  // If menu is ready to accept button press...
+  if (menu.readyForKey()) {
+    // ...detect key press using U8g2 library
+    // and pass pressed button to menu
+    menu.registerKeyPress(u8g2.getMenuEvent());
+  }
+}
+
+```
 
 This creates a structure like:  
 Main Menu  
